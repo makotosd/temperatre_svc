@@ -11,8 +11,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    ()
-    return 'Hello'
+    (t, h) = get_temperature()
+    return 'Hello: ' + t + " " + h
 
 
 def get_temperature():
@@ -33,6 +33,6 @@ def get_temperature():
 
 
 
-    if __name__ == '__main__':
+if __name__ == '__main__':
     app.debug = True
     app.run(host='0.0.0.0', port=8080)
