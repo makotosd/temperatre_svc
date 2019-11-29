@@ -1,18 +1,28 @@
 #!/usr/bin/env python3
 
-from flask import Flask
+from flask import Flask, jsonify
 import wiringpi
 import os
 import struct
 from time import sleep
+import datetime
 
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def index():
-    (t, h) = get_temperature()
-    return 'Hello: ' + t + " " + h
+    (t, h) = get_temperature_dummy()
+    dic = {
+        'temperature': t,
+        'humidity': h
+    }
+    dic2 = {
+        'timestamp': datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S"),
+        'value': dic
+    }
+    return jsonify(dic2)  # JSONをレスポンス
 
 
 def get_temperature():
@@ -31,6 +41,9 @@ def get_temperature():
     hudi = ((hudi / 65535.0) * 100)
     return temp, hudi
 
+
+def get_temperature_dummy():
+    return 25.0, 55.0
 
 
 if __name__ == '__main__':
