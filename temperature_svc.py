@@ -14,7 +14,7 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     (t, h) = get_temperature()
-    # (t, h) = get_temperature_dummy()
+    #(t, h) = get_temperature_dummy()
     dic = {
         'temperature': t,
         'humidity': h
